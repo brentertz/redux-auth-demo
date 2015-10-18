@@ -24,7 +24,7 @@
     "url": "https://github.com/brentertz/redux-auth-demo/issues"
   },
   "scripts": {
-    "build": "npm run clean && npm run lint && mkdirp database webpack --config webpack.config.dev.js",
+    "build": "npm run clean && npm run lint && mkdirp database && webpack --config webpack.config.dev.js",
     "clean": "rimraf dist && rimraf database",
     "develop": "DEVTOOLS=true npm start",
     "dist": "NODE_ENV=production npm run clean && npm run lint && webpack --config webpack.config.production.js",
@@ -41,7 +41,6 @@
     "react-redux": "^4.0.0",
     "react-router": "1.0.0-rc3",
     "redux": "3.0.2",
-    "redux-devtools": "2.1.5",
     "redux-logger": "^2.0.3",
     "redux-router": "^1.0.0-beta3",
     "redux-thunk": "1.0.0"
@@ -67,6 +66,9 @@
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.1.1",
+    "redux-devtools": "^3.0.0-beta-2",
+    "redux-devtools-dock-monitor": "^1.0.0-beta-2",
+    "redux-devtools-log-monitor": "^1.0.0-beta-2",
     "rimraf": "^2.4.2",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",

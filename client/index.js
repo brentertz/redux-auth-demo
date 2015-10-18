@@ -2,41 +2,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ReduxRouter } from 'redux-router';
-import { DebugPanel, DevTools, LogMonitor } from 'redux-devtools';
 import configureStore from './utils/configure-store';
 import * as authActions from './actions/auth';
 import routes from './routes';
 
-const initialState = {
-  auth: {
-    token: null
-  }
-};
-
+const initialState = { auth: { token: null } };
 export const store = configureStore(initialState);
-
-const component = (
-  <Provider store={ store } key="provider">
-    <ReduxRouter>
-      { routes(store) }
-    </ReduxRouter>
-  </Provider>
-);
-
+const component = <ReduxRouter routes={ routes(store) } />;
 const target = document.getElementById('app');
 
 store.dispatch(authActions.load());
 
-ReactDOM.render(component, target);
-
 if (__DEVTOOLS__) {
+  const DevTools = require('./components/DevTools');
   ReactDOM.render(
-    <div>
+    <Provider store={ store }>
+      <div>
+        { component }
+        <DevTools />
+      </div>
+    </Provider>,
+    target
+  );
+} else {
+  ReactDOM.render(
+    <Provider store={ store }>
       { component }
-      <DebugPanel key="debug-panel" top right bottom>
-        <DevTools store={ store } monitor={ LogMonitor } />
-      </DebugPanel>
-    </div>,
+    </Provider>,
     target
   );
 }
