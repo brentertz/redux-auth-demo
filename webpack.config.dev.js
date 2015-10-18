@@ -6,12 +6,12 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    './src/index'
+    './client/index'
   ],
   output: {
     filename: 'app.js',
     path: path.join(__dirname, 'dist'),
-    publicPath: '/static/'
+    publicPath: '/public/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -32,7 +32,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel'],
-      include: path.join(__dirname, 'src')
+      include: path.join(__dirname, 'client')
     }]
   }
 };

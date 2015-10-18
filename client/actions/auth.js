@@ -18,7 +18,7 @@ export function login(data) {
   return dispatch => {
     dispatch({ type: LOGIN, payload: data });
 
-    fetch('/api/auth', {
+    fetch('/api/sessions', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -28,13 +28,11 @@ export function login(data) {
     })
     .then((response) => {
       if (!response.ok) {
-        const error = new Error(response.statusText);
-        error.response = response;
-        throw error;
+        throw new Error(response.statusText);
       }
-      return response.json();
+      return response.text();
     })
-    .then(({ token }) => {
+    .then((token) => {
       window.localStorage.setItem('token', token);
       dispatch({ type: LOGIN_SUCCESS, payload: { token } });
     })

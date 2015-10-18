@@ -1,6 +1,6 @@
 {
   "name": "redux-auth-demo",
-  "description": "Demo app illustrating authentication flow using react, redux and react-router",
+  "description": "Demo app illustrating authentication flow using react, redux, react-router, and jwt (json web tokens)",
   "author": "Brent Ertz<brent.ertz@gmail.com>",
   "license": "MIT",
   "version": "0.0.1",
@@ -14,6 +14,8 @@
     "redux",
     "auth",
     "login",
+    "jwt",
+    "json web token",
     "demo",
     "example",
     "starter"
@@ -22,12 +24,12 @@
     "url": "https://github.com/brentertz/redux-auth-demo/issues"
   },
   "scripts": {
-    "build": "npm run clean && npm run lint && webpack --config webpack.config.dev.js",
-    "clean": "rimraf dist",
+    "build": "npm run clean && npm run lint && mkdirp database webpack --config webpack.config.dev.js",
+    "clean": "rimraf dist && rimraf database",
     "develop": "DEVTOOLS=true npm start",
     "dist": "NODE_ENV=production npm run clean && npm run lint && webpack --config webpack.config.production.js",
     "lint": "eslint .",
-    "start": "npm run build && node server.js",
+    "start": "npm run build && node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -55,7 +57,13 @@
     "eslint-plugin-react": "^3.4.2",
     "express": "^4.13.3",
     "html-webpack-plugin": "^1.6.1",
+    "jsonwebtoken": "^5.4.0",
+    "mkdirp": "^0.5.1",
     "morgan": "^1.6.1",
+    "passport": "^0.3.0",
+    "passport-jwt": "^1.2.1",
+    "pouchdb": "^5.0.0",
+    "pouchdb-find": "^0.5.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.1.1",
