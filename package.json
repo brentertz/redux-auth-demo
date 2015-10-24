@@ -27,7 +27,7 @@
     "build": "npm run clean && npm run lint && mkdirp database && webpack --config webpack.config.dev.js",
     "clean": "rimraf dist && rimraf database",
     "develop": "DEVTOOLS=true npm start",
-    "dist": "NODE_ENV=production npm run clean && npm run lint && webpack --config webpack.config.production.js",
+    "dist": "NODE_ENV=production npm run clean && npm run lint && webpack --config webpack.config.prod.js",
     "lint": "eslint .",
     "start": "npm run build && nodemon server --watch server",
     "test": "echo \"Error: no test specified\" && exit 1"
