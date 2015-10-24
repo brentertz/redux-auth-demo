@@ -29,7 +29,7 @@
     "develop": "DEVTOOLS=true npm start",
     "dist": "NODE_ENV=production npm run clean && npm run lint && webpack --config webpack.config.production.js",
     "lint": "eslint .",
-    "start": "npm run build && node server",
+    "start": "npm run build && nodemon server --watch server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -60,6 +60,7 @@
     "jsonwebtoken": "^5.4.0",
     "mkdirp": "^0.5.1",
     "morgan": "^1.6.1",
+    "nodemon": "^1.7.3",
     "passport": "^0.3.0",
     "passport-jwt": "^1.2.1",
     "pouchdb": "^5.0.0",

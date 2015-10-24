@@ -9,6 +9,6 @@ app.services.database.init(app).then(() => {
       console.err(err);
       return;
     }
-    console.log('Server listening on port %d', port);
+    console.log('🌍  Server listening on port %d', port);
   });
 });
