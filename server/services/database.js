@@ -2,6 +2,8 @@ const path = require('path');
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 PouchDB.debug.enable('*');
+const users = require('../lib/data/users');
+const secrets = require('../lib/data/secrets');
 
 module.exports = {
   init: (app) => {
@@ -11,13 +13,8 @@ module.exports = {
         prefix: path.join(__dirname, '../../database/')
       });
 
-      // NOTE: This is for demonstration purposes only. Do not store plain text passwords!
-      const users = [
-        { _id: '1', name: 'Foo Bar', email: 'foo@bar.com', password: 'password' },
-        { _id: '2', name: 'Baz Quux', email: 'baz@quux.com', password: 'password' }
-      ];
-
       users.forEach(user => db.put(user));
+      secrets.forEach(secret => db.put(secret));
 
       db.createIndex({
         index: {

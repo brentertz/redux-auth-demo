@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (app) => {
   return {
-    index: function(req, res) {
+    index: (req, res) => {
       if (!req.body) {
         return res.sendStatus(400);
       }

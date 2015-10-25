@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  require('./protected')(app);
+  require('./secrets')(app);
   require('./sessions')(app);
 };
 

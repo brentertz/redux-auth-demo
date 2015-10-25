@@ -1,6 +1,6 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import { Account, App, Home, Login, NotFound } from './components';
+import { AccountContainer, App, Home, Login, NotFound } from './components';
 
 export default function routes(store) {
   const requireLogin = (nextState, replaceState) => {
@@ -14,7 +14,7 @@ export default function routes(store) {
     <Route path="/" component={ App }>
       <IndexRoute component={ Home } />
       <Route onEnter={ requireLogin }>
-        <Route path="account" component={ Account } />
+        <Route path="account" component={ AccountContainer } />
       </Route>
       <Route path="login" component={ Login } />
       <Route path="*" component={ NotFound } />
