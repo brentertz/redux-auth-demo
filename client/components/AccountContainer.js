@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import Account from './Account';
 import * as secretsActions from '../actions/secrets';
 
-@connect(state => ({ secrets: state.secrets }))
+@connect(({ secrets }) => ({ secrets }))
 export default class AccountContainer extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    secrets: PropTypes.object.isRequired
+    secrets: ImmutablePropTypes.map.isRequired
   };
 
   componentDidMount() {
@@ -16,7 +17,7 @@ export default class AccountContainer extends Component {
   }
 
   render() {
-    const { secrets } = this.props.secrets;
+    const secrets = this.props.secrets.get('secrets');
     return <Account secrets={ secrets } />;
   }
 };

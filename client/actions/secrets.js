@@ -1,3 +1,4 @@
+import Immutable from 'immutable';
 import 'isomorphic-fetch';
 import {
   LOAD_SECRETS,
@@ -25,7 +26,12 @@ export function loadSecrets() {
       return response.json();
     })
     .then(({ secrets }) => {
-      dispatch({ type: LOAD_SECRETS_SUCCESS, payload: { secrets } });
+      dispatch({
+        type: LOAD_SECRETS_SUCCESS,
+        payload: {
+          secrets: Immutable.fromJS(secrets)
+        }
+      });
     })
     .catch((err) => {
       dispatch({ type: LOAD_SECRETS_FAILURE, error: err.message });

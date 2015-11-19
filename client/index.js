@@ -6,8 +6,7 @@ import configureStore from './utils/configure-store';
 import * as authActions from './actions/auth';
 import routes from './routes';
 
-const initialState = { auth: { token: null } };
-export const store = configureStore(initialState);
+export const store = configureStore();
 const component = <ReduxRouter routes={ routes(store) } />;
 const target = document.getElementById('app');
 

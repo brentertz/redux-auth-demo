@@ -1,3 +1,4 @@
+import Immutable from 'immutable';
 import createReducer from '../utils/create-reducer';
 import {
   LOAD_AUTH_SUCCESS,
@@ -7,53 +8,26 @@ import {
   LOGOUT
 } from '../constants';
 
-const initialState = {
+const initialState = Immutable.fromJS({
   token: null
-};
-
-function onLoadAuthSuccess(state, action) {
-  return {
-    ...state,
-    token: action.payload.token
-  };
-}
-
-function onLogin(state, action) {
-  return {
-    ...state,
-    isLoggingIn: true
-  };
-}
-
-function onLoginSuccess(state, action) {
-  return {
-    ...state,
-    isLoggingIn: false,
-    token: action.payload.token,
-    error: null
-  };
-}
-
-function onLoginFailure(state, action) {
-  return {
-    ...state,
-    isLoggingIn: false,
-    token: null,
-    error: action.error
-  };
-}
-
-function onLogout(state, action) {
-  return {
-    ...state,
-    token: null
-  };
-}
+});
 
 export default createReducer(initialState, {
-  [LOAD_AUTH_SUCCESS]: onLoadAuthSuccess,
-  [LOGIN]: onLogin,
-  [LOGIN_SUCCESS]: onLoginSuccess,
-  [LOGIN_FAILURE]: onLoginFailure,
-  [LOGOUT]: onLogout
+  [LOAD_AUTH_SUCCESS]: (state, { payload: { token } }) => state.merge({ token }),
+  [LOGIN]: (state) => state.set('isLoggingIn', true),
+  [LOGIN_SUCCESS]: (state, { payload: { token } }) => {
+    return state.merge({
+      isLoggingIn: false,
+      token,
+      error: null
+    });
+  },
+  [LOGIN_FAILURE]: (state, { error }) => {
+    return state.merge({
+      isLoggingIn: false,
+      token: null,
+      error
+    });
+  },
+  [LOGOUT]: (state) => state.set('token', null)
 });

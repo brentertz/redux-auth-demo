@@ -2,10 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { pushState } from 'redux-router';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import * as authActions from '../actions/auth';
 
 @connect(
-  state => ({ auth: state.auth, isLoggedIn: !!state.auth.token }),
+  ({ auth }) => ({ auth, isLoggedIn: !!auth.get('token') }),
   { pushState }
 )
 export default class App extends Component {
@@ -14,7 +15,7 @@ export default class App extends Component {
   };
 
   static propTypes = {
-    auth: PropTypes.object.isRequired,
+    auth: ImmutablePropTypes.map.isRequired,
     children: PropTypes.any,
     isLoggedIn: PropTypes.bool.isRequired,
     pushState: PropTypes.func.isRequired
@@ -26,9 +27,9 @@ export default class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.auth.token && nextProps.auth.token) {
+    if (!this.props.auth.get('token') && nextProps.auth.get('token')) {
       this.props.pushState(null, '/account'); // login
-    } else if (this.props.auth.token && !nextProps.auth.token) {
+    } else if (this.props.auth.get('token') && !nextProps.auth.get('token')) {
       this.props.pushState(null, '/'); // logout
     }
   }

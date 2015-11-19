@@ -1,19 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 export default class Account extends Component {
   static propTypes = {
-    secrets: PropTypes.arrayOf(
-      PropTypes.shape({
-        _id: PropTypes.string,
-        value: PropTypes.string
-      })
-    )
+    secrets: ImmutablePropTypes.list
   };
 
   render() {
     const { secrets } = this.props;
-    const secretItems = secrets && secrets.map(({ _id, value }) => {
-      return <li key={ _id }>{ value }</li>;
+    const secretItems = secrets && secrets.map((secret) => {
+      return <li key={ secret.get('_id') }>{ secret.get('value') }</li>;
     });
 
     return (

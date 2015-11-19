@@ -4,7 +4,7 @@ import { AccountContainer, App, Home, Login, NotFound } from './components';
 
 export default function routes(store) {
   const requireLogin = (nextState, replaceState) => {
-    const isLoggedIn = !!store.getState().auth.token;
+    const isLoggedIn = !!store.getState().auth.get('token');
     if (!isLoggedIn) {
       replaceState(null, '/login');
     }

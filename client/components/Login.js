@@ -1,15 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import * as authActions from '../actions/auth';
 
-@connect(state => ({ auth: state.auth }))
+@connect(({ auth }) => ({ auth }))
 export default class Login extends Component {
   static contextTypes = {
     store: PropTypes.any
   };
 
   static propTypes = {
-    auth: PropTypes.object.isRequired
+    auth: ImmutablePropTypes.map.isRequired
   };
 
   constructor(props, context) {
@@ -29,12 +30,13 @@ export default class Login extends Component {
 
   render() {
     const { auth } = this.props;
+    const error = auth.get('error');
 
     return (
       <div className="Login">
         <h1>Login</h1>
         <form onSubmit={ this.handleSubmit }>
-          { auth.error && `💥 ${ auth.error }` }
+          { error && `💥 ${ error }` }
           <fieldset>
             <div>
               <label>

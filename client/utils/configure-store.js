@@ -1,3 +1,4 @@
+import Immutable from 'immutable';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { reduxReactRouter } from 'redux-router';
 import thunk from 'redux-thunk';
@@ -7,7 +8,16 @@ import rootReducer from '../reducers';
 
 const middleware = [
   thunk,
-  createLogger({ collapsed: true })
+  createLogger({
+    collapsed: true,
+    transformer: (state) => {
+      const newState = {};
+      for (let key of Object.keys(state)) {
+        newState[key] = Immutable.Iterable.isIterable(state[key]) ? state[key].toJS() : state[key];
+      }
+      return newState;
+    }
+  })
 ];
 
 const storeEnhancers = [
