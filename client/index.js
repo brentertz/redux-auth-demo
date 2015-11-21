@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ReduxRouter } from 'redux-router';
 import configureStore from './utils/configure-store';
-import * as authActions from './actions/auth';
+import { loadAuth } from './actions/auth';
 import routes from './routes';
 
 export const store = configureStore();
 const component = <ReduxRouter routes={ routes(store) } />;
 const target = document.getElementById('app');
 
-store.dispatch(authActions.load());
+store.dispatch(loadAuth());
 
 if (__DEVTOOLS__) {
   const DevTools = require('./components/DevTools');

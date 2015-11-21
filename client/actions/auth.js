@@ -8,7 +8,7 @@ import {
   AUTH_LOGOUT_SUCCESS
 } from '../constants';
 
-export function load() {
+export function loadAuth() {
   return (dispatch) => {
     const token = window.localStorage.getItem('token');
     dispatch(loadAuthSuccess({ token }));

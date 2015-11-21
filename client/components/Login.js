@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as authActions from '../actions/auth';
+import { login } from '../actions/auth';
 import { getAuthError } from '../reducers/auth';
 
 @connect((state) => ({ error: getAuthError(state) }))
@@ -25,7 +25,7 @@ export default class Login extends Component {
       email: this.refs.email.value,
       password: this.refs.password.value
     };
-    dispatch(authActions.login(data));
+    dispatch(login(data));
   }
 
   render() {
