@@ -1,14 +1,15 @@
 import Immutable from 'immutable';
 import 'isomorphic-fetch';
+import { createAction } from 'redux-actions';
 import {
-  LOAD_SECRETS,
-  LOAD_SECRETS_SUCCESS,
-  LOAD_SECRETS_FAILURE
+  SECRETS_LOAD_REQUEST,
+  SECRETS_LOAD_SUCCESS,
+  SECRETS_LOAD_FAILURE
 } from '../constants';
 
 export function loadSecrets() {
   return dispatch => {
-    dispatch({ type: LOAD_SECRETS });
+    dispatch(loadSecretsRequest());
 
     const token = window.localStorage.getItem('token');
 
@@ -26,15 +27,14 @@ export function loadSecrets() {
       return response.json();
     })
     .then(({ secrets }) => {
-      dispatch({
-        type: LOAD_SECRETS_SUCCESS,
-        payload: {
-          secrets: Immutable.fromJS(secrets)
-        }
-      });
+      dispatch(loadSecretsSuccess({ secrets: Immutable.fromJS(secrets) }));
     })
     .catch((err) => {
-      dispatch({ type: LOAD_SECRETS_FAILURE, error: err.message });
+      dispatch(loadSecretsFailure(err));
     });
   };
 };
+
+const loadSecretsRequest = createAction(SECRETS_LOAD_REQUEST);
+const loadSecretsSuccess = createAction(SECRETS_LOAD_SUCCESS, ({ secrets }) => ({ secrets }));
+const loadSecretsFailure = createAction(SECRETS_LOAD_FAILURE, (err) => err);

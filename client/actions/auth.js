@@ -1,22 +1,25 @@
 import 'isomorphic-fetch';
+import { createAction } from 'redux-actions';
 import {
-  LOAD_AUTH_SUCCESS,
-  LOGIN,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT
+  AUTH_LOAD_SUCCESS,
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGIN_SUCCESS,
+  AUTH_LOGIN_FAILURE,
+  AUTH_LOGOUT_SUCCESS
 } from '../constants';
 
 export function load() {
-  return dispatch => {
+  return (dispatch) => {
     const token = window.localStorage.getItem('token');
-    dispatch({ type: LOAD_AUTH_SUCCESS, payload: { token } });
+    dispatch(loadAuthSuccess({ token }));
   };
 };
 
+const loadAuthSuccess = createAction(AUTH_LOAD_SUCCESS, ({ token }) => ({ token }));
+
 export function login(data) {
-  return dispatch => {
-    dispatch({ type: LOGIN, payload: data });
+  return (dispatch) => {
+    dispatch(loginRequest(data));
 
     fetch('/api/sessions', {
       method: 'post',
@@ -34,15 +37,23 @@ export function login(data) {
     })
     .then((token) => {
       window.localStorage.setItem('token', token);
-      dispatch({ type: LOGIN_SUCCESS, payload: { token } });
+      dispatch(loginSuccess({ token }));
     })
     .catch((err) => {
-      dispatch({ type: LOGIN_FAILURE, error: err.message });
+      dispatch(loginFailure(err));
     });
   };
 };
 
+const loginRequest = createAction(AUTH_LOGIN_REQUEST, (data) => data);
+const loginSuccess = createAction(AUTH_LOGIN_SUCCESS, ({ token }) => ({ token }));
+const loginFailure = createAction(AUTH_LOGIN_FAILURE, (err) => err);
+
 export function logout() {
-  window.localStorage.removeItem('token');
-  return { type: LOGOUT };
+  return (dispatch) => {
+    window.localStorage.removeItem('token');
+    dispatch(logoutSuccess());
+  };
 };
+
+const logoutSuccess = createAction(AUTH_LOGOUT_SUCCESS);
