@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ReduxRouter } from 'redux-router';
-import configureStore from './utils/configure-store';
+import configureStore from './utils/store';
 import { loadAuth } from './actions/auth';
 import routes from './routes';
 
