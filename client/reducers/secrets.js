@@ -1,12 +1,11 @@
 import Immutable from 'immutable';
 import { handleActions } from 'redux-actions';
+import { propertySelector } from '../utils/reducers';
 import {
   SECRETS_LOAD_REQUEST,
   SECRETS_LOAD_SUCCESS,
   SECRETS_LOAD_FAILURE
 } from '../constants';
-
-export const stateKey = 'secrets';
 
 const initialState = Immutable.fromJS({
   secrets: []
@@ -30,5 +29,6 @@ export default handleActions({
   }
 }, initialState);
 
+export const stateKey = 'secrets';
 export const getSecretsState = (state) => state[stateKey];
-export const getSecrets = (state) => getSecretsState(state).get('secrets');
+export const getSecrets = propertySelector(getSecretsState, 'secrets');

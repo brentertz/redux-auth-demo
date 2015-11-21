@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import { handleActions } from 'redux-actions';
+import { propertySelector } from '../utils/reducers';
 import {
   AUTH_LOAD_SUCCESS,
   AUTH_LOGIN_REQUEST,
@@ -7,8 +8,6 @@ import {
   AUTH_LOGIN_FAILURE,
   AUTH_LOGOUT_SUCCESS
 } from '../constants';
-
-export const stateKey = 'auth';
 
 const initialState = Immutable.fromJS({
   token: null
@@ -34,7 +33,8 @@ export default handleActions({
   [AUTH_LOGOUT_SUCCESS]: (state) => state.set('token', null)
 }, initialState);
 
+export const stateKey = 'auth';
 export const getAuthState = (state) => state[stateKey];
-export const getAuthToken = (state) => getAuthState(state).get('token');
-export const getAuthError = (state) => getAuthState(state).get('error');
+export const getAuthError = propertySelector(getAuthState, 'error');
+export const getAuthToken = propertySelector(getAuthState, 'token');
 export const isLoggedIn = (state) => !!getAuthToken(state);
