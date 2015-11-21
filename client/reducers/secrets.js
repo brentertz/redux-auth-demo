@@ -6,6 +6,8 @@ import {
   SECRETS_LOAD_FAILURE
 } from '../constants';
 
+export const stateKey = 'secrets';
+
 const initialState = Immutable.fromJS({
   secrets: []
 });
@@ -27,3 +29,6 @@ export default handleActions({
     });
   }
 }, initialState);
+
+export const getSecretsState = (state) => state[stateKey];
+export const getSecrets = (state) => getSecretsState(state).get('secrets');

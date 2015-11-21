@@ -4,9 +4,13 @@ import { Link } from 'react-router';
 import { pushState } from 'redux-router';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import * as authActions from '../actions/auth';
+import { getAuthState, isLoggedIn } from '../reducers/auth';
 
 @connect(
-  ({ auth }) => ({ auth, isLoggedIn: !!auth.get('token') }),
+  (state) => ({
+    auth: getAuthState(state),
+    isLoggedIn: isLoggedIn(state)
+  }),
   { pushState }
 )
 export default class App extends Component {

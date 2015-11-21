@@ -8,6 +8,8 @@ import {
   AUTH_LOGOUT_SUCCESS
 } from '../constants';
 
+export const stateKey = 'auth';
+
 const initialState = Immutable.fromJS({
   token: null
 });
@@ -31,3 +33,8 @@ export default handleActions({
   },
   [AUTH_LOGOUT_SUCCESS]: (state) => state.set('token', null)
 }, initialState);
+
+export const getAuthState = (state) => state[stateKey];
+export const getAuthToken = (state) => getAuthState(state).get('token');
+export const getAuthError = (state) => getAuthState(state).get('error');
+export const isLoggedIn = (state) => !!getAuthToken(state);
