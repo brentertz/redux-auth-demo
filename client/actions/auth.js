@@ -15,8 +15,6 @@ export function loadAuth() {
   };
 };
 
-const loadAuthSuccess = createAction(AUTH_LOAD_SUCCESS, ({ token }) => ({ token }));
-
 export function login(data) {
   return (dispatch) => {
     dispatch(loginRequest(data));
@@ -45,10 +43,6 @@ export function login(data) {
   };
 };
 
-const loginRequest = createAction(AUTH_LOGIN_REQUEST, (data) => data);
-const loginSuccess = createAction(AUTH_LOGIN_SUCCESS, ({ token }) => ({ token }));
-const loginFailure = createAction(AUTH_LOGIN_FAILURE, (err) => err);
-
 export function logout() {
   return (dispatch) => {
     window.localStorage.removeItem('token');
@@ -56,4 +50,9 @@ export function logout() {
   };
 };
 
+const loadAuthSuccess = createAction(AUTH_LOAD_SUCCESS, ({ token }) => ({ token }));
+const loginRequest = createAction(AUTH_LOGIN_REQUEST, (data) => data);
+const loginSuccess = createAction(AUTH_LOGIN_SUCCESS, ({ token }) => ({ token }));
+const loginFailure = createAction(AUTH_LOGIN_FAILURE, (err) => err);
 const logoutSuccess = createAction(AUTH_LOGOUT_SUCCESS);
+
