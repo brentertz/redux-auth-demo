@@ -1,11 +1,11 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
 import { AccountContainer, App, Home, Login, NotFound } from './components';
+import { isLoggedIn } from './reducers/auth';
 
 export default function routes(store) {
   const requireLogin = (nextState, replaceState) => {
-    const isLoggedIn = !!store.getState().auth.get('token');
-    if (!isLoggedIn) {
+    if (!isLoggedIn(store.getState())) {
       replaceState(null, '/login');
     }
   };
