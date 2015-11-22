@@ -1,40 +1,18 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { login } from '../actions/auth';
-import { getAuthError } from '../reducers/auth';
 
-@connect((state) => ({ error: getAuthError(state) }))
 export default class Login extends Component {
-  static contextTypes = {
-    store: PropTypes.any
-  };
-
   static propTypes = {
-    error: PropTypes.string
+    error: PropTypes.string,
+    onSubmit: PropTypes.func.isRequired
   };
-
-  constructor(props, context) {
-    super(props, context);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    const { dispatch } = this.context.store;
-    const data = {
-      email: this.refs.email.value,
-      password: this.refs.password.value
-    };
-    dispatch(login(data));
-  }
 
   render() {
-    const { error } = this.props;
+    const { error, onSubmit } = this.props;
 
     return (
       <div className="Login">
         <h1>Login</h1>
-        <form onSubmit={ this.handleSubmit }>
+        <form onSubmit={ onSubmit.bind(this, this) }>
           { error && `💥 ${ error }` }
           <fieldset>
             <div>

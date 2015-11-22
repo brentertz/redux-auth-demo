@@ -1,6 +1,7 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import { AccountContainer, App, Home, Login, NotFound } from './components';
+import { AccountContainer, AppContainer, LoginContainer } from './containers';
+import { Home, Login, NotFound } from './components';
 import { isLoggedIn } from './reducers/auth';
 
 export default function routes(store) {
@@ -11,12 +12,12 @@ export default function routes(store) {
   };
 
   return (
-    <Route path="/" component={ App }>
+    <Route path="/" component={ AppContainer }>
       <IndexRoute component={ Home } />
       <Route onEnter={ requireLogin }>
         <Route path="account" component={ AccountContainer } />
       </Route>
-      <Route path="login" component={ Login } />
+      <Route path="login" component={ LoginContainer } />
       <Route path="*" component={ NotFound } />
     </Route>
   );

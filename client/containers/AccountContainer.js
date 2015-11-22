@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Account from './Account';
+import { Account } from '../components';
 import { loadSecrets } from '../actions/secrets';
 import { getSecrets } from '../reducers/secrets';
 
