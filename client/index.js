@@ -6,7 +6,7 @@ import configureStore from './utils/store';
 import { loadAuth } from './actions/auth';
 import routes from './routes';
 
-export const store = configureStore();
+const store = configureStore();
 const component = <ReduxRouter routes={ routes(store) } />;
 const target = document.getElementById('app');
 

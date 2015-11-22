@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { login } from '../actions/auth';
 import { getAuthError } from '../reducers/auth';
@@ -7,7 +6,7 @@ import { Login } from '../components';
 
 @connect(
   (state) => ({ error: getAuthError(state) }),
-  (dispatch) => bindActionCreators({ login }, dispatch)
+  { login }
 )
 export default class LoginContainer extends Component {
   static propTypes = {

@@ -1,5 +1,6 @@
 import 'isomorphic-fetch';
 import { createAction } from 'redux-actions';
+import { pushState } from 'redux-router';
 import {
   AUTH_LOAD_SUCCESS,
   AUTH_LOGIN_REQUEST,
@@ -36,6 +37,7 @@ export function login(data) {
     .then((token) => {
       window.localStorage.setItem('token', token);
       dispatch(loginSuccess({ token }));
+      dispatch(pushState(null, '/account'));
     })
     .catch((err) => {
       dispatch(loginFailure(err));
@@ -47,6 +49,7 @@ export function logout() {
   return (dispatch) => {
     window.localStorage.removeItem('token');
     dispatch(logoutSuccess());
+    dispatch(pushState(null, '/'));
   };
 };
 
