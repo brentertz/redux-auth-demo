@@ -1,32 +1,27 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { login } from '../actions/auth';
 import { getAuthError } from '../reducers/auth';
 import { Login } from '../components';
 
-@connect((state) => ({ error: getAuthError(state) }))
+@connect(
+  (state) => ({ error: getAuthError(state) }),
+  (dispatch) => bindActionCreators({ login }, dispatch)
+)
 export default class LoginContainer extends Component {
-  static contextTypes = {
-    store: PropTypes.any
-  };
-
   static propTypes = {
-    error: PropTypes.string
+    error: PropTypes.string,
+    login: PropTypes.func.isRequired
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onSubmit(child, e) {
+  onSubmit = (child, e) => {
     e.preventDefault();
-    const { dispatch } = this.context.store;
     const data = {
       email: child.refs.email.value,
       password: child.refs.password.value
     };
-    dispatch(login(data));
+    this.props.login(data);
   }
 
   render() {

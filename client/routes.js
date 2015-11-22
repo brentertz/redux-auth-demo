@@ -1,7 +1,7 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
 import { AccountContainer, AppContainer, LoginContainer } from './containers';
-import { Home, Login, NotFound } from './components';
+import { Home, NotFound } from './components';
 import { isLoggedIn } from './reducers/auth';
 
 export default function routes(store) {
