@@ -1,6 +1,7 @@
 import Immutable from 'immutable';
 import 'isomorphic-fetch';
 import { createAction } from 'redux-actions';
+import { getAuthToken } from '../reducers/auth';
 import {
   SECRETS_LOAD_REQUEST,
   SECRETS_LOAD_SUCCESS,
@@ -8,10 +9,10 @@ import {
 } from '../constants';
 
 export function loadSecrets() {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(loadSecretsRequest());
 
-    const token = window.localStorage.getItem('token');
+    const token = getAuthToken(getState());
 
     fetch('/api/secrets', {
       headers: {
