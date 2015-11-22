@@ -23,10 +23,17 @@ export default class AppContainer extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.auth.get('token') && nextProps.auth.get('token')) {
-      this.props.pushState(null, '/account'); // login
-    } else if (this.props.auth.get('token') && !nextProps.auth.get('token')) {
-      this.props.pushState(null, '/'); // logout
+    const { pushState } = this.props;
+    const prevToken = this.props.auth.get('token');
+    const nextToken = nextProps.auth.get('token');
+    const loggingIn = !prevToken && nextToken;
+    const loggingOut = prevToken && !nextToken;
+
+    if (loggingIn) {
+      pushState(null, '/account');
+    }
+    else if (loggingOut) {
+      pushState(null, '/');
     }
   }
 
