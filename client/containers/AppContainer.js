@@ -23,9 +23,6 @@ export default class AppContainer extends Component {
   render() {
     const { isLoggedIn, children } = this.props;
     const props = { isLoggedIn, children, logout: this.onLogout };
-
-    return (
-     <App { ...props } />
-    );
+    return <App { ...props } />;
   }
 };

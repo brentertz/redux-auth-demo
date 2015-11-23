@@ -15,11 +15,6 @@ export default class LoginContainer extends Component {
   };
 
   render() {
-    const { error, login } = this.props;
-    const props = { error, login };
-
-    return (
-      <Login { ...props } />
-    );
+    return <Login { ...this.props } />;
   }
 };
