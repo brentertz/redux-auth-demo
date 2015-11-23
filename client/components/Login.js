@@ -3,16 +3,26 @@ import React, { Component, PropTypes } from 'react';
 export default class Login extends Component {
   static propTypes = {
     error: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired
+    login: PropTypes.func.isRequired
   };
 
+  onSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = this.refs;
+    const data = {
+      email: email.value,
+      password: password.value
+    };
+    this.props.login(data);
+  }
+
   render() {
-    const { error, onSubmit } = this.props;
+    const { error } = this.props;
 
     return (
       <div className="Login">
         <h1>Login</h1>
-        <form onSubmit={ onSubmit.bind(this, this) }>
+        <form onSubmit={ this.onSubmit }>
           { error && `💥 ${ error }` }
           <fieldset>
             <div>

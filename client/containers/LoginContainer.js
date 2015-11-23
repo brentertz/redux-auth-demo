@@ -14,18 +14,9 @@ export default class LoginContainer extends Component {
     login: PropTypes.func.isRequired
   };
 
-  onSubmit = (child, e) => {
-    e.preventDefault();
-    const data = {
-      email: child.refs.email.value,
-      password: child.refs.password.value
-    };
-    this.props.login(data);
-  }
-
   render() {
-    const { error } = this.props;
-    const props = { error, onSubmit: this.onSubmit };
+    const { error, login } = this.props;
+    const props = { error, login };
 
     return (
       <Login { ...props } />

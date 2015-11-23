@@ -22,7 +22,7 @@ export default class AppContainer extends Component {
 
   render() {
     const { isLoggedIn, children } = this.props;
-    const props = { isLoggedIn, children, onLogout: this.onLogout };
+    const props = { isLoggedIn, children, logout: this.onLogout };
 
     return (
      <App { ...props } />

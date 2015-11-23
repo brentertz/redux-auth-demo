@@ -5,11 +5,11 @@ export default class App extends Component {
   static propTypes = {
     children: PropTypes.any,
     isLoggedIn: PropTypes.bool.isRequired,
-    onLogout: PropTypes.func.isRequired
+    logout: PropTypes.func.isRequired
   };
 
   render() {
-    const { isLoggedIn, children, onLogout } = this.props;
+    const { isLoggedIn, children, logout } = this.props;
 
     return (
       <div className="App">
@@ -18,7 +18,7 @@ export default class App extends Component {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/account">Account</Link></li>
             { !isLoggedIn && <li><Link to="/login">Login</Link></li> }
-            { isLoggedIn && <li><a href="/logout" onClick={ onLogout }>Logout</a></li> }
+            { isLoggedIn && <li><a href="/logout" onClick={ logout }>Logout</a></li> }
           </ul>
         </nav>
         <div>{ children }</div>
